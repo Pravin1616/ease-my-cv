@@ -73,11 +73,13 @@ const Standard: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      {isEditing ? (
-        <ResumeForm initialData={data} onSubmit={handleSubmit} />
-      ) : (
-        <ResumeRender data={data} onEdit={handleEdit} />
-      )}
+      <div className='p-8 bg-white shadow-lg rounded-lg max-w-4xl mx-auto'>
+        {isEditing ? (
+          <ResumeForm initialData={data} onSubmit={handleSubmit} />
+        ) : (
+          <ResumeRender data={data} onEdit={handleEdit} />
+        )}
+      </div>
     </div>
   );
 };
