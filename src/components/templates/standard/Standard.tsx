@@ -1,56 +1,83 @@
-// src/Resume.js
-
 import React, { useState } from 'react';
-import { z } from 'zod';
+import ResumeForm from './ResumeForm';
 import template from '../../../json/template_1.json';
-import './Standard.css';
-import Header from '../../header/Header';
-import Contact from '../../contact/Contact';
-import Summary from '../../summary/Summary';
-import Experience from '../../experience/Experience';
-import Education from '../../education/Education';
-import Skills from '../../skills/Skills';
-import Projects from '../../projects/Projects';
-import ResumeBuilderForm from './ResumeForm';
+import ResumeRender from './ResumeRender';
 
-// Import section components
+// Define types for the JSON template
+interface Field {
+  name: string;
+  label: string;
+  type: string;
+  default: string;
+}
 
-// Define Zod schemas for validation
-const schemas = {
-  contact: z.object({
-    email: z.string().email(),
-    phone: z.string().min(10),
-    linkedin: z.string().url(),
-    github: z.string().url()
-  })
+interface Section {
+  id: string;
+  type: string;
+  title?: string;
+  fields: Field[];
+}
+
+interface Template {
+  sections: Section[];
+}
+
+// Cast template to the correct type
+const typedTemplate = template as Template;
+
+const extractInitialData = (sections: Section[]) => {
+  const initialData: any = {
+    name: '',
+    designation: '',
+    email: '',
+    phone: '',
+    linkedin: '',
+    github: '',
+    summary: '',
+    skills: '',
+    work_experience: [{}],
+    projects: [{}],
+    education: [{}],
+  };
+
+  sections.forEach((section) => {
+    if (section.id === 'work_experience' || section.id === 'projects' || section.id === 'education') {
+      initialData[section.id] = [{}];
+      section.fields.forEach((field) => {
+        initialData[section.id][0][field.name] = field.default;
+      });
+    } else {
+      section.fields.forEach((field) => {
+        initialData[field.name] = field.default;
+      });
+    }
+  });
+
+  return initialData;
 };
 
-const Standard = () => {
-  const renderSection = (section) => {
-    switch (section.type) {
-      case 'header':
-        return <Header key={section.id} title={section.title} subtitle={section.subtitle} />;
-      case 'contact':
-        return <Contact key={section.id} title={section.title} fields={section.fields} />;
-      case 'summary':
-        return <Summary key={section.id} title={section.title} content={section.content} />;
-      case 'experience':
-        return <Experience key={section.id} title={section.title} jobs={section.jobs} />;
-      case 'education':
-        return <Education key={section.id} title={section.title} schools={section.schools} />;
-      case 'skills':
-        return <Skills key={section.id} title={section.title} skills={section.skills} />;
-      case 'projects':
-        return <Projects key={section.id} title={section.title} projects={section.projects} />;
-      default:
-        return null;
-    }
+const initialData = extractInitialData(typedTemplate.sections);
+
+const Standard: React.FC = () => {
+  const [data, setData] = useState(initialData);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSubmit = (formData: any) => {
+    setData(formData);
+    setIsEditing(false);
   };
 
   return (
-    <div className="resume-container">
-      {/* {template.sections.map(renderSection)} */}
-      {<ResumeBuilderForm />}
+    <div className="container mx-auto p-4">
+      {isEditing ? (
+        <ResumeForm initialData={data} onSubmit={handleSubmit} />
+      ) : (
+        <ResumeRender data={data} onEdit={handleEdit} />
+      )}
     </div>
   );
 };

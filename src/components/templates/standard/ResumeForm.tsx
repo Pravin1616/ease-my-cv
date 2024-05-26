@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm, useFieldArray, FormProvider, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
 import template from '../../../json/template_1.json';
 import { FormControl, FormItem, FormLabel, FormMessage } from '../../../@/components/ui/form';
 import { Input } from '../../../@/components/ui/input';
@@ -36,7 +35,7 @@ const createSchema = (sections: Section[]) => {
   const shape: Record<string, any> = {};
 
   sections.forEach((section) => {
-    if (section.id === 'work_experience' || section.id === 'projects') {
+    if (section.id === 'work_experience' || section.id === 'projects' || section.id === 'education') {
       shape[section.id] = z.array(
         z.object(
           section.fields.reduce((acc, field) => {
@@ -59,19 +58,15 @@ const schema = createSchema(typedTemplate.sections);
 
 type FormData = z.infer<typeof schema>;
 
-const ResumeForm: React.FC = () => {
+interface ResumeFormProps {
+  initialData: FormData;
+  onSubmit: (data: FormData) => void;
+}
+
+const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: typedTemplate.sections.reduce((acc, section) => {
-      if (section.id === 'work_experience' || section.id === 'projects') {
-        acc[section.id] = [{}]; // initialize with an empty object for dynamic arrays
-      } else {
-        section.fields.forEach((field) => {
-          acc[field.name] = field.default;
-        });
-      }
-      return acc;
-    }, {} as Record<string, any>)
+    defaultValues: initialData
   });
 
   const { register, handleSubmit, control, formState: { errors } } = methods;
@@ -86,67 +81,88 @@ const ResumeForm: React.FC = () => {
     name: 'projects'
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-  };
+  const { fields: educationFields, append: appendEducation } = useFieldArray({
+    control,
+    name: 'education'
+  });
 
   return (
-    <div className="p-6">
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
-          {typedTemplate.sections.map((section) => (
-            <div key={section.id} className="space-y-2">
-              {section.title && <h3 className="text-2xl font-semibold leading-none tracking-tight">{section.title}</h3>}
-              {section.id === 'work_experience' && (
-                <>
-                  {workExperienceFields.map((item, i) => (
-                    <div key={item.id} className="space-y-2">
-                      {section.fields.map((field) => (
-                        <FormItem key={field.name}>
-                          <FormLabel htmlFor={`work_experience.${i}.${field.name}`}>{field.label}</FormLabel>
-                          <FormControl>
-                            {field.type === 'textarea' ? (
-                              <Textarea id={`work_experience.${i}.${field.name}`} {...register(`work_experience.${i}.${field.name}` as const)} placeholder={field.default} />
-                            ) : (
-                              <Input id={`work_experience.${i}.${field.name}`} {...register(`work_experience.${i}.${field.name}` as const)} placeholder={field.default} />
-                            )}
-                          </FormControl>
-                          <FormMessage>{errors?.work_experience?.[i]?.[field.name]?.message}</FormMessage>
-                        </FormItem>
-                      ))}
-                    </div>
-                  ))}
-                  <Button type="button" onClick={() => appendWorkExperience({})}>
-                    Add More Work Experience
-                  </Button>
-                </>
-              )}
-              {section.id === 'projects' && (
-                <>
-                  {projectFields.map((item, i) => (
-                    <div key={item.id} className="space-y-2">
-                      {section.fields.map((field) => (
-                        <FormItem key={field.name}>
-                          <FormLabel htmlFor={`projects.${i}.${field.name}`}>{field.label}</FormLabel>
-                          <FormControl>
-                            {field.type === 'textarea' ? (
-                              <Textarea id={`projects.${i}.${field.name}`} {...register(`projects.${i}.${field.name}` as const)} placeholder={field.default} />
-                            ) : (
-                              <Input id={`projects.${i}.${field.name}`} {...register(`projects.${i}.${field.name}` as const)} placeholder={field.default} />
-                            )}
-                          </FormControl>
-                          <FormMessage>{errors?.projects?.[i]?.[field.name]?.message}</FormMessage>
-                        </FormItem>
-                      ))}
-                    </div>
-                  ))}
-                  <Button type="button" onClick={() => appendProject({})}>
-                    Add More Projects
-                  </Button>
-                </>
-              )}
-              {section.id !== 'work_experience' && section.id !== 'projects' &&
-                section.fields.map((field) => (
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
+        {typedTemplate.sections.map((section) => (
+          <div key={section.id} className="space-y-2">
+            {section.title && <h3 className="text-2xl font-semibold leading-none tracking-tight">{section.title}</h3>}
+            {section.id === 'work_experience' && (
+              <>
+                {workExperienceFields.map((item, i) => (
+                  <div key={item.id} className="space-y-2">
+                    {section.fields.map((field) => (
+                      <FormItem key={field.name}>
+                        <FormLabel htmlFor={`work_experience.${i}.${field.name}`}>{field.label}</FormLabel>
+                        <FormControl>
+                          {field.type === 'textarea' ? (
+                            <Textarea id={`work_experience.${i}.${field.name}`} {...register(`work_experience.${i}.${field.name}` as const)} placeholder={field.default} />
+                          ) : (
+                            <Input id={`work_experience.${i}.${field.name}`} {...register(`work_experience.${i}.${field.name}` as const)} placeholder={field.default} />
+                          )}
+                        </FormControl>
+                        <FormMessage>{errors?.work_experience?.[i]?.[field.name]?.message}</FormMessage>
+                      </FormItem>
+                    ))}
+                  </div>
+                ))}
+                <Button type="button" onClick={() => appendWorkExperience({})}>
+                  Add More Work Experience
+                </Button>
+              </>
+            )}
+            {section.id === 'projects' && (
+              <>
+                {projectFields.map((item, i) => (
+                  <div key={item.id} className="space-y-2">
+                    {section.fields.map((field) => (
+                      <FormItem key={field.name}>
+                        <FormLabel htmlFor={`projects.${i}.${field.name}`}>{field.label}</FormLabel>
+                        <FormControl>
+                          {field.type === 'textarea' ? (
+                            <Textarea id={`projects.${i}.${field.name}`} {...register(`projects.${i}.${field.name}` as const)} placeholder={field.default} />
+                          ) : (
+                            <Input id={`projects.${i}.${field.name}`} {...register(`projects.${i}.${field.name}` as const)} placeholder={field.default} />
+                          )}
+                        </FormControl>
+                        <FormMessage>{errors?.projects?.[i]?.[field.name]?.message}</FormMessage>
+                      </FormItem>
+                    ))}
+                  </div>
+                ))}
+                <Button type="button" onClick={() => appendProject({})}>
+                  Add More Projects
+                </Button>
+              </>
+            )}
+            {section.id === 'education' && (
+              <>
+                {educationFields.map((item, i) => (
+                  <div key={item.id} className="space-y-2">
+                    {section.fields.map((field) => (
+                      <FormItem key={field.name}>
+                        <FormLabel htmlFor={`education.${i}.${field.name}`}>{field.label}</FormLabel>
+                        <FormControl>
+                          <Input id={`education.${i}.${field.name}`} {...register(`education.${i}.${field.name}` as const)} placeholder={field.default} />
+                        </FormControl>
+                        <FormMessage>{errors?.education?.[i]?.[field.name]?.message}</FormMessage>
+                      </FormItem>
+                    ))}
+                  </div>
+                ))}
+                <Button type="button" onClick={() => appendEducation({})}>
+                  Add More Education
+                </Button>
+              </>
+            )}
+            {section.id !== 'work_experience' && section.id !== 'projects' && section.id !== 'education' && (
+              <>
+                {section.fields.map((field) => (
                   <FormItem key={field.name}>
                     <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
                     <FormControl>
@@ -159,14 +175,15 @@ const ResumeForm: React.FC = () => {
                     <FormMessage>{(errors as any)[field.name]?.message}</FormMessage>
                   </FormItem>
                 ))}
-            </div>
-          ))}
-          <Button type="submit" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
-            Submit
-          </Button>
-        </form>
-      </FormProvider>
-    </div>
+              </>
+            )}
+          </div>
+        ))}
+        <Button type="submit">
+          Submit
+        </Button>
+      </form>
+    </FormProvider>
   );
 };
 
