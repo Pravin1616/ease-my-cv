@@ -11,6 +11,7 @@ import Experience from '../../experience/Experience';
 import Education from '../../education/Education';
 import Skills from '../../skills/Skills';
 import Projects from '../../projects/Projects';
+import ResumeBuilderForm from './ResumeForm';
 
 // Import section components
 
@@ -48,7 +49,8 @@ const Standard = () => {
 
   return (
     <div className="resume-container">
-      {template.sections.map(renderSection)}
+      {/* {template.sections.map(renderSection)} */}
+      {<ResumeBuilderForm />}
     </div>
   );
 };
