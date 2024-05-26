@@ -7,6 +7,7 @@ import template from '../../../json/template_1.json';
 import { FormControl, FormItem, FormLabel, FormMessage } from '../../../@/components/ui/form';
 import { Input } from '../../../@/components/ui/input';
 import { Button } from '../../../@/components/ui/button';
+import { Textarea } from '../../../@/components/ui/textarea';
 
 // Define types for the JSON template
 interface Field {
@@ -49,6 +50,9 @@ const createSchema = (sections: Section[]): ZodObject<any> => {
         case 'url':
           shape[field.name] = z.string().url('Invalid URL');
           break;
+        case 'textarea':
+          shape[field.name] = z.string().min(1, `${field.label} is required`);
+          break;
         default:
           shape[field.name] = z.string();
       }
@@ -90,9 +94,13 @@ const ResumeForm: React.FC = () => {
                 <FormItem key={field.name}>
                   <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
                   <FormControl>
-                    <Input id={field.name} {...register(field.name)} placeholder={field.default} />
+                    {field.type === 'textarea' ? (
+                      <Textarea id={field.name} {...register(field.name)} placeholder={field.default} />
+                    ) : (
+                      <Input id={field.name} {...register(field.name)} placeholder={field.default} />
+                    )}
                   </FormControl>
-                  <FormMessage>{(errors as any)[field.name]?.message}</FormMessage>
+                  <FormMessage>{(errors as FieldErrors<FormData> | any)[field.name]?.message}</FormMessage>
                 </FormItem>
               ))}
             </div>

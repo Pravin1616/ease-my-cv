@@ -18,6 +18,52 @@
         {"name": "linkedin", "label": "LinkedIn", "type": "url", "default": "https://linkedin.com/in/johndoe"},
         {"name": "github", "label": "GitHub", "type": "url", "default": "https://github.com/johndoe"}
       ]
-    }    
+    },
+    {
+      "id": "summary",
+      "type": "textarea",
+      "title": "Summary",
+      "fields": [
+        {"name": "summary", "label": "Professional Summary", "type": "textarea", "default": "Experienced software engineer with a background in developing scalable web applications."}
+      ]
+    },
+    {
+      "id": "skills",
+      "type": "list",
+      "title": "Skills",
+      "fields": [
+        {"name": "skills", "label": "Skills", "type": "text", "default": "JavaScript, React, Node.js"}
+      ]
+    },
+    {
+      "id": "work_experience",
+      "type": "list",
+      "title": "Work Experience",
+      "fields": [
+        {"name": "company", "label": "Company", "type": "text", "default": "ABC Corp"},
+        {"name": "position", "label": "Position", "type": "text", "default": "Software Engineer"},
+        {"name": "duration", "label": "Duration", "type": "text", "default": "Jan 2020 - Present"},
+        {"name": "responsibilities", "label": "Responsibilities", "type": "textarea", "default": "Developed web applications using React and Node.js."}
+      ]
+    },
+    {
+      "id": "projects",
+      "type": "list",
+      "title": "Projects",
+      "fields": [
+        {"name": "project_name", "label": "Project Name", "type": "text", "default": "Project A"},
+        {"name": "description", "label": "Description", "type": "textarea", "default": "Developed an e-commerce website using React and Node.js."}
+      ]
+    },
+    {
+      "id": "education",
+      "type": "list",
+      "title": "Education",
+      "fields": [
+        {"name": "institution", "label": "Institution", "type": "text", "default": "XYZ University"},
+        {"name": "degree", "label": "Degree", "type": "text", "default": "Bachelor of Science in Computer Science"},
+        {"name": "year", "label": "Year", "type": "text", "default": "2019"}
+      ]
+    }
   ]
 }
