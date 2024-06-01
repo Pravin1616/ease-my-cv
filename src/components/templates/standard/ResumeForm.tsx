@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, useFieldArray, FormProvider, SubmitHandler } from 'react-hook-form';
+import { useForm, useFieldArray, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import template from '../../../json/template_1.json';
@@ -88,7 +88,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 p-4">
         {typedTemplate.sections.map((section) => (
           <div key={section.id} className="space-y-2">
             {section.title && <h3 className="text-2xl font-semibold leading-none tracking-tight">{section.title}</h3>}

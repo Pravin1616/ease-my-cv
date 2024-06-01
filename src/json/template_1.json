@@ -4,8 +4,8 @@
       "id": "header",
       "type": "header",
       "fields": [
-        {"name": "name", "label": "Name", "type": "text", "default": "John Doe"},
-        {"name": "designation", "label": "Designation", "type": "text", "default": "Software Engineer"}
+        {"name": "name", "label": "Name", "type": "text", "default": "John Doe", "maxLength": 30},
+        {"name": "designation", "label": "Designation", "type": "text", "default": "Software Engineer", "maxLength": 50}
       ]
     },
     {
@@ -13,10 +13,10 @@
       "type": "contact",
       "title": "Contact Information",
       "fields": [
-        {"name": "email", "label": "Email", "type": "email", "default": "john.doe@example.com"},
-        {"name": "phone", "label": "Phone", "type": "tel", "default": "1234567890"},
-        {"name": "linkedin", "label": "LinkedIn", "type": "url", "default": "https://linkedin.com/in/johndoe"},
-        {"name": "github", "label": "GitHub", "type": "url", "default": "https://github.com/johndoe"}
+        {"name": "email", "label": "Email", "type": "email", "default": "john.doe@example.com", "maxLength": 50},
+        {"name": "phone", "label": "Phone", "type": "tel", "default": "1234567890", "maxLength": 15},
+        {"name": "linkedin", "label": "LinkedIn", "type": "url", "default": "https://linkedin.com/in/johndoe", "maxLength": 100},
+        {"name": "github", "label": "GitHub", "type": "url", "default": "https://github.com/johndoe", "maxLength": 100}
       ]
     },
     {
@@ -24,7 +24,7 @@
       "type": "textarea",
       "title": "Summary",
       "fields": [
-        {"name": "summary", "label": "Professional Summary", "type": "textarea", "default": "Experienced software engineer with a background in developing scalable web applications."}
+        {"name": "summary", "label": "Professional Summary", "type": "textarea", "default": "Experienced software engineer with a background in developing scalable web applications.", "maxLines": 5}
       ]
     },
     {
@@ -32,7 +32,7 @@
       "type": "list",
       "title": "Skills",
       "fields": [
-        {"name": "skills", "label": "Skills", "type": "text", "default": "JavaScript, React, Node.js"}
+        {"name": "skills", "label": "Skills", "type": "text", "default": "JavaScript, React, Node.js", "maxLength": 100}
       ]
     },
     {
@@ -40,10 +40,10 @@
       "type": "list",
       "title": "Work Experience",
       "fields": [
-        {"name": "company", "label": "Company", "type": "text", "default": "ABC Corp"},
-        {"name": "position", "label": "Position", "type": "text", "default": "Software Engineer"},
-        {"name": "duration", "label": "Duration", "type": "text", "default": "Jan 2020 - Present"},
-        {"name": "responsibilities", "label": "Responsibilities", "type": "textarea", "default": "Developed web applications using React and Node.js."}
+        {"name": "company", "label": "Company", "type": "text", "default": "ABC Corp", "maxLength": 50},
+        {"name": "position", "label": "Position", "type": "text", "default": "Software Engineer", "maxLength": 50},
+        {"name": "duration", "label": "Duration", "type": "text", "default": "Jan 2020 - Present", "maxLength": 30},
+        {"name": "responsibilities", "label": "Responsibilities", "type": "textarea", "default": "Developed web applications using React and Node.js.", "maxLines": 10}
       ]
     },
     {
@@ -51,8 +51,8 @@
       "type": "list",
       "title": "Projects",
       "fields": [
-        {"name": "project_name", "label": "Project Name", "type": "text", "default": "Project A"},
-        {"name": "description", "label": "Description", "type": "textarea", "default": "Developed an e-commerce website using React and Node.js."}
+        {"name": "project_name", "label": "Project Name", "type": "text", "default": "Project A", "maxLength": 50},
+        {"name": "description", "label": "Description", "type": "textarea", "default": "Developed an e-commerce website using React and Node.js.", "maxLines": 10}
       ]
     },
     {
@@ -60,9 +60,9 @@
       "type": "list",
       "title": "Education",
       "fields": [
-        {"name": "institution", "label": "Institution", "type": "text", "default": "XYZ University"},
-        {"name": "degree", "label": "Degree", "type": "text", "default": "Bachelor of Science in Computer Science"},
-        {"name": "year", "label": "Year", "type": "text", "default": "2019"}
+        {"name": "institution", "label": "Institution", "type": "text", "default": "XYZ University", "maxLength": 50},
+        {"name": "degree", "label": "Degree", "type": "text", "default": "Bachelor of Science in Computer Science", "maxLength": 50},
+        {"name": "year", "label": "Year", "type": "text", "default": "2019", "maxLength": 10}
       ]
     }
   ]
