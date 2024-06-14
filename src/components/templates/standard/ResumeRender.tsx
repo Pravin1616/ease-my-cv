@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Pencil1Icon, Cross1Icon, DownloadIcon } from '@radix-ui/react-icons'; // Importing icons from Radix
-import ResumeForm from './ResumeForm';
-import { Button } from '../../../@/components/ui/button';
-import * as htmlToImage from 'html-to-image';
+import React, { useState, useEffect } from "react";
+import { Pencil1Icon, Cross1Icon, DownloadIcon } from "@radix-ui/react-icons"; // Importing icons from Radix
+import ResumeForm from "./ResumeForm";
+import { Button } from "../../../@/components/ui/button";
+import * as htmlToImage from "html-to-image";
 
 interface UiProperties {
   background_color: string;
@@ -51,7 +51,11 @@ interface ResumeRenderProps {
   setSelectedTemplate: (e) => void;
 }
 
-const ResumeRender: React.FC<ResumeRenderProps> = ({ data, layout, setSelectedTemplate }) => {
+const ResumeRender: React.FC<ResumeRenderProps> = ({
+  data,
+  layout,
+  setSelectedTemplate,
+}) => {
   const [resumeData, setResumeData] = useState(data);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
@@ -71,41 +75,45 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({ data, layout, setSelectedTe
 
   const handleDownload = () => {
     // Selecting the container to convert to image
-    const container:any = document.getElementById('resume-container');
+    const container: any = document.getElementById("resume-container");
 
     // Checking if the container exists
     if (container) {
       // Adjusting container styling to fit A4 size
-      container.style.width = '794px'; // A4 width in pixels
-      container.style.height = '1123px'; // A4 height in pixels
-      container.style.overflow = 'hidden'; // Hide overflow content
+      container.style.width = "794px"; // A4 width in pixels
+      container.style.height = "1123px"; // A4 height in pixels
+      container.style.overflow = "hidden"; // Hide overflow content
 
       // Selecting the inner content of the container
-      const content = container.querySelector('.resume-content');
+      const content = container.querySelector(".resume-content");
 
       // Checking if the content exists
       if (content) {
         // Scaling and positioning content to fit within A4 size
-        const scale = Math.min(794 / content.offsetWidth, 1123 / content.offsetHeight); // Calculate scale
+        const scale = Math.min(
+          794 / content.offsetWidth,
+          1123 / content.offsetHeight
+        ); // Calculate scale
         content.style.transform = `scale(${scale})`; // Apply scale
-        content.style.transformOrigin = 'top left'; // Set transform origin
-        content.style.position = 'absolute'; // Position content
-        content.style.top = '0'; // Align content to top
-        content.style.left = '0'; // Align content to left
+        content.style.transformOrigin = "top left"; // Set transform origin
+        content.style.position = "absolute"; // Position content
+        content.style.top = "0"; // Align content to top
+        content.style.left = "0"; // Align content to left
       }
 
       // Converting HTML to image with A4 dimensions
-      htmlToImage.toPng(container, { width: 794, height: 1123 })
+      htmlToImage
+        .toPng(container, { width: 794, height: 1123 })
         .then(function (dataUrl) {
           // Creating a temporary anchor element to download the image
-          const link = document.createElement('a');
-          link.download = 'resume.png'; // File name
+          const link = document.createElement("a");
+          link.download = "resume.png"; // File name
           link.href = dataUrl;
           link.click();
         })
         .catch(function (error) {
-          console.error('Error:', error);
-        })
+          console.error("Error:", error);
+        });
     }
   };
 
@@ -114,27 +122,52 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({ data, layout, setSelectedTe
       {/* Buttons section */}
       <div className="flex justify-end p-2">
         <div className="flex space-x-2">
-          {(isDataChanged && !isEditMode) && (
-            <Button onClick={handleDownload} className="text-blue-500" variant="ghost">
+          {isDataChanged && !isEditMode && (
+            <Button
+              onClick={handleDownload}
+              className="text-blue-500"
+              variant="ghost"
+            >
               <DownloadIcon />
             </Button>
           )}
-          <Button onClick={() => {isEditMode ? setIsEditMode(false) : setSelectedTemplate(null)}} className="text-red-500" variant="ghost">
+          <Button
+            onClick={() => {
+              isEditMode ? setIsEditMode(false) : setSelectedTemplate(null);
+            }}
+            className="text-red-500"
+            variant="ghost"
+          >
             <Cross1Icon />
           </Button>
-          <Button onClick={handleEdit} className="text-green-500" variant="ghost">
+          <Button
+            onClick={handleEdit}
+            className="text-green-500"
+            variant="ghost"
+          >
             <Pencil1Icon />
           </Button>
         </div>
       </div>
 
       {/* Resume container */}
-      <div id="resume-container" className={`relative bg-white shadow-lg rounded-lg overflow-hidden w-full`} style={{ width:'100%',maxWidth: '210mm', height: `${isEditMode ? '100%' : '297mm'}` }}>
+      <div
+        id="resume-container"
+        className={`relative bg-white shadow-lg rounded-lg overflow-hidden w-full`}
+        style={{
+          width: "100%",
+          maxWidth: "210mm",
+          height: `${isEditMode ? "100%" : "297mm"}`,
+        }}
+      >
         {/* Resume content */}
         {isEditMode ? (
           <ResumeForm initialData={resumeData} onSubmit={handleSubmit} />
         ) : (
-          <div className="grid gap-4 grid-cols-1 md:grid-cols-2" style={{height: '100%'}}>
+          <div
+            className="grid gap-4 grid-cols-1 md:grid-cols-2"
+            style={{ height: "100%" }}
+          >
             {layout.grid.map((grid, index) => (
               <div
                 key={index}
@@ -161,48 +194,62 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({ data, layout, setSelectedTe
 // Helper function to render section based on section name
 const renderSection = (section: string, data: any) => {
   switch (section) {
-    case 'header':
+    case "header":
       return (
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">{data.name}</h1>
           <p className="text-xl">{data.designation}</p>
         </div>
       );
-    case 'contact':
+    case "contact":
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Contact Information</h2>
           <p>Email: {data.email}</p>
           <p>Phone: {data.phone}</p>
           <p>
-            LinkedIn:{' '}
-            <a href={data.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+            LinkedIn:{" "}
+            <a
+              href={data.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline"
+            >
               {data.linkedin}
             </a>
           </p>
           <p>
-            GitHub:{' '}
-            <a href={data.github} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+            GitHub:{" "}
+            <a
+              href={data.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline"
+            >
               {data.github}
             </a>
           </p>
         </div>
       );
-    case 'summary':
+    case "summary":
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Professional Summary</h2>
           <p>{data.summary}</p>
         </div>
       );
-    case 'skills':
+    case "skills":
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Skills</h2>
-          <p>{data.skills}</p>
+          <ul>
+            {data.skills.split(",").map((skill, index) => (
+              <li key={index}>{skill.trim()}</li>
+            ))}
+          </ul>
         </div>
       );
-    case 'work_experience':
+    case "work_experience":
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Work Experience</h2>
@@ -216,7 +263,7 @@ const renderSection = (section: string, data: any) => {
           ))}
         </div>
       );
-    case 'projects':
+    case "projects":
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Projects</h2>
@@ -228,7 +275,7 @@ const renderSection = (section: string, data: any) => {
           ))}
         </div>
       );
-    case 'education':
+    case "education":
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Education</h2>

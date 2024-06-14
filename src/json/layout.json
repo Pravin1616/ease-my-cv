@@ -10,7 +10,7 @@
                   "column_start": 1,
                   "column_end": 2
               },
-              "sections": ["header", "contact", "Skills"]
+              "sections": ["header", "contact", "skills"]
           },
           {
               "ui_properties": {

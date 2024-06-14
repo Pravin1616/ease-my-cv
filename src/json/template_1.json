@@ -14,7 +14,7 @@
       "title": "Contact Information",
       "fields": [
         {"name": "email", "label": "Email", "type": "email", "default": "john.doe@example.com", "maxLength": 50},
-        {"name": "phone", "label": "Phone", "type": "tel", "default": "1234567890", "maxLength": 15},
+        {"name": "phone", "label": "Phone", "type": "tel", "default": "123-456-7890", "maxLength": 15},
         {"name": "linkedin", "label": "LinkedIn", "type": "url", "default": "https://linkedin.com/in/johndoe", "maxLength": 100},
         {"name": "github", "label": "GitHub", "type": "url", "default": "https://github.com/johndoe", "maxLength": 100}
       ]
@@ -24,7 +24,7 @@
       "type": "textarea",
       "title": "Summary",
       "fields": [
-        {"name": "summary", "label": "Professional Summary", "type": "textarea", "default": "Experienced software engineer with a background in developing scalable web applications.", "maxLines": 5}
+        {"name": "summary", "label": "Professional Summary", "type": "textarea", "default": "Experienced software engineer with a background in developing scalable web applications and services. Skilled in JavaScript, React, and Node.js.", "maxLines": 5}
       ]
     },
     {
@@ -32,7 +32,7 @@
       "type": "list",
       "title": "Skills",
       "fields": [
-        {"name": "skills", "label": "Skills", "type": "text", "default": "JavaScript, React, Node.js", "maxLength": 100}
+        {"name": "skills", "label": "Skills", "type": "text", "default": "JavaScript, React, Node.js, Express, MongoDB, Git, Docker", "maxLength": 100}
       ]
     },
     {
@@ -40,10 +40,24 @@
       "type": "list",
       "title": "Work Experience",
       "fields": [
-        {"name": "company", "label": "Company", "type": "text", "default": "ABC Corp", "maxLength": 50},
-        {"name": "position", "label": "Position", "type": "text", "default": "Software Engineer", "maxLength": 50},
-        {"name": "duration", "label": "Duration", "type": "text", "default": "Jan 2020 - Present", "maxLength": 30},
-        {"name": "responsibilities", "label": "Responsibilities", "type": "textarea", "default": "Developed web applications using React and Node.js.", "maxLines": 10}
+        {"name": "company", "label": "Company", "type": "text", "maxLength": 50},
+        {"name": "position", "label": "Position", "type": "text", "maxLength": 50},
+        {"name": "duration", "label": "Duration", "type": "text", "maxLength": 30},
+        {"name": "responsibilities", "label": "Responsibilities", "type": "textarea", "maxLines": 10}
+      ],
+      "data": [
+        {
+          "company": "ABC Corp",
+          "position": "Senior Software Engineer",
+          "duration": "Jan 2020 - Present",
+          "responsibilities": "Leading the development of a scalable web application using React and Node.js. Mentoring junior developers and conducting code reviews."
+        },
+        {
+          "company": "XYZ Inc.",
+          "position": "Software Engineer",
+          "duration": "Jun 2018 - Dec 2019",
+          "responsibilities": "Developed RESTful APIs using Node.js and Express. Integrated third-party services and optimized application performance."
+        }
       ]
     },
     {
@@ -51,8 +65,18 @@
       "type": "list",
       "title": "Projects",
       "fields": [
-        {"name": "project_name", "label": "Project Name", "type": "text", "default": "Project A", "maxLength": 50},
-        {"name": "description", "label": "Description", "type": "textarea", "default": "Developed an e-commerce website using React and Node.js.", "maxLines": 10}
+        {"name": "project_name", "label": "Project Name", "type": "text", "maxLength": 50},
+        {"name": "description", "label": "Description", "type": "textarea", "maxLines": 10}
+      ],
+      "data": [
+        {
+          "project_name": "E-commerce Website",
+          "description": "Developed a full-stack e-commerce website using React for the frontend and Node.js for the backend. Implemented features such as user authentication, product management, and order processing."
+        },
+        {
+          "project_name": "Chat Application",
+          "description": "Built a real-time chat application using WebSocket and Node.js. Implemented features like private messaging, group chats, and message history."
+        }
       ]
     },
     {
@@ -60,9 +84,21 @@
       "type": "list",
       "title": "Education",
       "fields": [
-        {"name": "institution", "label": "Institution", "type": "text", "default": "XYZ University", "maxLength": 50},
-        {"name": "degree", "label": "Degree", "type": "text", "default": "Bachelor of Science in Computer Science", "maxLength": 50},
-        {"name": "year", "label": "Year", "type": "text", "default": "2019", "maxLength": 10}
+        {"name": "institution", "label": "Institution", "type": "text", "maxLength": 50},
+        {"name": "degree", "label": "Degree", "type": "text", "maxLength": 50},
+        {"name": "year", "label": "Year", "type": "text", "maxLength": 10}
+      ],
+      "data": [
+        {
+          "institution": "XYZ University",
+          "degree": "Bachelor of Science in Computer Science",
+          "year": "2019"
+        },
+        {
+          "institution": "ABC College",
+          "degree": "Master of Science in Software Engineering",
+          "year": "2021"
+        }
       ]
     }
   ]

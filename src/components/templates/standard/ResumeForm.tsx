@@ -1,12 +1,17 @@
-import React from 'react';
-import { useForm, useFieldArray, FormProvider } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import template from '../../../json/template_1.json';
-import { FormControl, FormItem, FormLabel, FormMessage } from '../../../@/components/ui/form';
-import { Input } from '../../../@/components/ui/input';
-import { Button } from '../../../@/components/ui/button';
-import { Textarea } from '../../../@/components/ui/textarea';
+import React from "react";
+import { useForm, useFieldArray, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import template from "../../../json/template_1.json";
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../../../@/components/ui/form";
+import { Input } from "../../../@/components/ui/input";
+import { Button } from "../../../@/components/ui/button";
+import { Textarea } from "../../../@/components/ui/textarea";
 
 // Define types for the JSON template
 interface Field {
@@ -14,6 +19,8 @@ interface Field {
   label: string;
   type: string;
   default: string;
+  maxLength?: number;
+  maxLines?: number;
 }
 
 interface Section {
@@ -21,6 +28,7 @@ interface Section {
   type: string;
   title?: string;
   fields: Field[];
+  data?: any[]; // To handle work_experience, projects, education data
 }
 
 interface Template {
@@ -35,7 +43,11 @@ const createSchema = (sections: Section[]) => {
   const shape: Record<string, any> = {};
 
   sections.forEach((section) => {
-    if (section.id === 'work_experience' || section.id === 'projects' || section.id === 'education') {
+    if (
+      section.id === "work_experience" ||
+      section.id === "projects" ||
+      section.id === "education"
+    ) {
       shape[section.id] = z.array(
         z.object(
           section.fields.reduce((acc, field) => {
@@ -66,24 +78,30 @@ interface ResumeFormProps {
 const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: initialData
+    defaultValues: initialData,
   });
 
-  const { register, handleSubmit, control, formState: { errors } } = methods;
-
-  const { fields: workExperienceFields, append: appendWorkExperience } = useFieldArray({
+  const {
+    register,
+    handleSubmit,
     control,
-    name: 'work_experience'
-  });
+    formState: { errors },
+  } = methods;
+
+  const { fields: workExperienceFields, append: appendWorkExperience } =
+    useFieldArray({
+      control,
+      name: "work_experience",
+    });
 
   const { fields: projectFields, append: appendProject } = useFieldArray({
     control,
-    name: 'projects'
+    name: "projects",
   });
 
   const { fields: educationFields, append: appendEducation } = useFieldArray({
     control,
-    name: 'education'
+    name: "education",
   });
 
   return (
@@ -91,22 +109,44 @@ const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 p-4">
         {typedTemplate.sections.map((section) => (
           <div key={section.id} className="space-y-2">
-            {section.title && <h3 className="text-2xl font-semibold leading-none tracking-tight">{section.title}</h3>}
-            {section.id === 'work_experience' && (
+            {section.title && (
+              <h3 className="text-2xl font-semibold leading-none tracking-tight">
+                {section.title}
+              </h3>
+            )}
+            {section.id === "work_experience" && (
               <>
                 {workExperienceFields.map((item, i) => (
                   <div key={item.id} className="space-y-2">
                     {section.fields.map((field) => (
                       <FormItem key={field.name}>
-                        <FormLabel htmlFor={`work_experience.${i}.${field.name}`}>{field.label}</FormLabel>
+                        <FormLabel
+                          htmlFor={`work_experience.${i}.${field.name}`}
+                        >
+                          {field.label}
+                        </FormLabel>
                         <FormControl>
-                          {field.type === 'textarea' ? (
-                            <Textarea id={`work_experience.${i}.${field.name}`} {...register(`work_experience.${i}.${field.name}` as const)} placeholder={field.default} />
+                          {field.type === "textarea" ? (
+                            <Textarea
+                              id={`work_experience.${i}.${field.name}`}
+                              {...register(
+                                `work_experience.${i}.${field.name}` as const
+                              )}
+                              placeholder={field.default}
+                            />
                           ) : (
-                            <Input id={`work_experience.${i}.${field.name}`} {...register(`work_experience.${i}.${field.name}` as const)} placeholder={field.default} />
+                            <Input
+                              id={`work_experience.${i}.${field.name}`}
+                              {...register(
+                                `work_experience.${i}.${field.name}` as const
+                              )}
+                              placeholder={field.default}
+                            />
                           )}
                         </FormControl>
-                        <FormMessage>{errors?.work_experience?.[i]?.[field.name]?.message}</FormMessage>
+                        <FormMessage>
+                          {errors?.work_experience?.[i]?.[field.name]?.message}
+                        </FormMessage>
                       </FormItem>
                     ))}
                   </div>
@@ -116,21 +156,37 @@ const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
                 </Button>
               </>
             )}
-            {section.id === 'projects' && (
+            {section.id === "projects" && (
               <>
                 {projectFields.map((item, i) => (
                   <div key={item.id} className="space-y-2">
                     {section.fields.map((field) => (
                       <FormItem key={field.name}>
-                        <FormLabel htmlFor={`projects.${i}.${field.name}`}>{field.label}</FormLabel>
+                        <FormLabel htmlFor={`projects.${i}.${field.name}`}>
+                          {field.label}
+                        </FormLabel>
                         <FormControl>
-                          {field.type === 'textarea' ? (
-                            <Textarea id={`projects.${i}.${field.name}`} {...register(`projects.${i}.${field.name}` as const)} placeholder={field.default} />
+                          {field.type === "textarea" ? (
+                            <Textarea
+                              id={`projects.${i}.${field.name}`}
+                              {...register(
+                                `projects.${i}.${field.name}` as const
+                              )}
+                              placeholder={field.default}
+                            />
                           ) : (
-                            <Input id={`projects.${i}.${field.name}`} {...register(`projects.${i}.${field.name}` as const)} placeholder={field.default} />
+                            <Input
+                              id={`projects.${i}.${field.name}`}
+                              {...register(
+                                `projects.${i}.${field.name}` as const
+                              )}
+                              placeholder={field.default}
+                            />
                           )}
                         </FormControl>
-                        <FormMessage>{errors?.projects?.[i]?.[field.name]?.message}</FormMessage>
+                        <FormMessage>
+                          {errors?.projects?.[i]?.[field.name]?.message}
+                        </FormMessage>
                       </FormItem>
                     ))}
                   </div>
@@ -140,17 +196,27 @@ const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
                 </Button>
               </>
             )}
-            {section.id === 'education' && (
+            {section.id === "education" && (
               <>
                 {educationFields.map((item, i) => (
                   <div key={item.id} className="space-y-2">
                     {section.fields.map((field) => (
                       <FormItem key={field.name}>
-                        <FormLabel htmlFor={`education.${i}.${field.name}`}>{field.label}</FormLabel>
+                        <FormLabel htmlFor={`education.${i}.${field.name}`}>
+                          {field.label}
+                        </FormLabel>
                         <FormControl>
-                          <Input id={`education.${i}.${field.name}`} {...register(`education.${i}.${field.name}` as const)} placeholder={field.default} />
+                          <Input
+                            id={`education.${i}.${field.name}`}
+                            {...register(
+                              `education.${i}.${field.name}` as const
+                            )}
+                            placeholder={field.default}
+                          />
                         </FormControl>
-                        <FormMessage>{errors?.education?.[i]?.[field.name]?.message}</FormMessage>
+                        <FormMessage>
+                          {errors?.education?.[i]?.[field.name]?.message}
+                        </FormMessage>
                       </FormItem>
                     ))}
                   </div>
@@ -160,28 +226,38 @@ const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
                 </Button>
               </>
             )}
-            {section.id !== 'work_experience' && section.id !== 'projects' && section.id !== 'education' && (
-              <>
-                {section.fields.map((field) => (
-                  <FormItem key={field.name}>
-                    <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
-                    <FormControl>
-                      {field.type === 'textarea' ? (
-                        <Textarea id={field.name} {...register(field.name)} placeholder={field.default} />
-                      ) : (
-                        <Input id={field.name} {...register(field.name)} placeholder={field.default} />
-                      )}
-                    </FormControl>
-                    <FormMessage>{(errors as any)[field.name]?.message}</FormMessage>
-                  </FormItem>
-                ))}
-              </>
-            )}
+            {section.id !== "work_experience" &&
+              section.id !== "projects" &&
+              section.id !== "education" && (
+                <>
+                  {section.fields.map((field) => (
+                    <FormItem key={field.name}>
+                      <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
+                      <FormControl>
+                        {field.type === "textarea" ? (
+                          <Textarea
+                            id={field.name}
+                            {...register(field.name)}
+                            placeholder={field.default}
+                          />
+                        ) : (
+                          <Input
+                            id={field.name}
+                            {...register(field.name)}
+                            placeholder={field.default}
+                          />
+                        )}
+                      </FormControl>
+                      <FormMessage>
+                        {(errors as any)?.[field.name]?.message}
+                      </FormMessage>
+                    </FormItem>
+                  ))}
+                </>
+              )}
           </div>
         ))}
-        <Button type="submit">
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </FormProvider>
   );
