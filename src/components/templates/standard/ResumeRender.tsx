@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Pencil1Icon, Cross1Icon, DownloadIcon } from "@radix-ui/react-icons"; // Importing icons from Radix
+import {
+  Pencil1Icon,
+  Cross1Icon,
+  DownloadIcon,
+  DotFilledIcon,
+} from "@radix-ui/react-icons"; // Importing icons from Radix
 import ResumeForm from "./ResumeForm";
 import { Button } from "../../../@/components/ui/button";
 import * as htmlToImage from "html-to-image";
@@ -162,10 +167,16 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
       >
         {/* Resume content */}
         {isEditMode ? (
-          <ResumeForm initialData={resumeData} onSubmit={handleSubmit} />
+          <ResumeForm
+            initialData={resumeData}
+            onSubmit={handleSubmit}
+            layout={layout}
+          />
         ) : (
           <div
-            className="grid gap-4 grid-cols-1 md:grid-cols-2"
+            className={`grid ${
+              layout.grid.length === 2 ? "gap-4" : ""
+            } grid-cols-1 md:grid-cols-${layout.grid.length}`}
             style={{ height: "100%" }}
           >
             {layout.grid.map((grid, index) => (
@@ -244,7 +255,12 @@ const renderSection = (section: string, data: any) => {
           <h2 className="text-2xl font-semibold">Skills</h2>
           <ul>
             {data.skills.split(",").map((skill, index) => (
-              <li key={index}>{skill.trim()}</li>
+              <li className="skillsListContainer" key={index}>
+                <span>
+                  <DotFilledIcon width={25} height={25} />
+                </span>
+                {skill.trim()}
+              </li>
             ))}
           </ul>
         </div>

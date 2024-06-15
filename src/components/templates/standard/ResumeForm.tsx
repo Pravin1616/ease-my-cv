@@ -73,9 +73,25 @@ type FormData = z.infer<typeof schema>;
 interface ResumeFormProps {
   initialData: FormData;
   onSubmit: (data: FormData) => void;
+  layout: any;
 }
 
-const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
+// Function to filter sections based on the layout
+const filterSectionsByLayout = (layout: any, sections: Section[]) => {
+  const sectionIds = layout.grid.flatMap((gridItem) => gridItem.sections);
+  return sections.filter((section) => sectionIds.includes(section.id));
+};
+
+const ResumeForm: React.FC<ResumeFormProps> = ({
+  layout,
+  initialData,
+  onSubmit,
+}) => {
+  const filteredSections = filterSectionsByLayout(
+    layout,
+    typedTemplate.sections
+  );
+
   const methods = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: initialData,
@@ -107,7 +123,7 @@ const ResumeForm: React.FC<ResumeFormProps> = ({ initialData, onSubmit }) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 p-4">
-        {typedTemplate.sections.map((section) => (
+        {filteredSections.map((section) => (
           <div key={section.id} className="space-y-2">
             {section.title && (
               <h3 className="text-2xl font-semibold leading-none tracking-tight">

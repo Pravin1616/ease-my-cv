@@ -3,6 +3,7 @@ import template from "../../../json/template_1.json";
 import layouts from "../../../json/layout.json";
 import Skeleton from "react-loading-skeleton";
 import ResumeRender from "./ResumeRender";
+import "./Standard.css";
 
 // Define types for the JSON template
 interface Field {
