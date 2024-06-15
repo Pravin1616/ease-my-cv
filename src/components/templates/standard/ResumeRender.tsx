@@ -4,10 +4,14 @@ import {
   Cross1Icon,
   DownloadIcon,
   DotFilledIcon,
+  EnvelopeClosedIcon,
+  LinkedInLogoIcon,
+  GitHubLogoIcon,
 } from "@radix-ui/react-icons"; // Importing icons from Radix
 import ResumeForm from "./ResumeForm";
 import { Button } from "../../../@/components/ui/button";
 import * as htmlToImage from "html-to-image";
+import { PhoneIcon } from "lucide-react";
 
 interface UiProperties {
   background_color: string;
@@ -21,9 +25,21 @@ interface Section {
   sections: string[];
 }
 
+interface LayoutGridItem {
+  ui_properties: {
+    background_color: string;
+    text_color: string;
+    column_start: number;
+    column_end: number;
+  };
+  sections: string[];
+}
+
 interface Layout {
   name: string;
-  grid: Section[];
+  image: string;
+  grid: LayoutGridItem[];
+  type: string;
 }
 
 interface ResumeRenderProps {
@@ -112,7 +128,7 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
         .then(function (dataUrl) {
           // Creating a temporary anchor element to download the image
           const link = document.createElement("a");
-          link.download = "resume.png"; // File name
+          link.download = `${layout.name}.png`; // File name
           link.href = dataUrl;
           link.click();
         })
@@ -121,6 +137,17 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
         });
     }
   };
+
+  function generateGridLayout(type: string) {
+    switch (type) {
+      case "1*2":
+        return `35% 65%`;
+      case "2*1":
+        return `65% 35%`;
+      default:
+        return `100%`;
+    }
+  }
 
   return (
     <>
@@ -174,10 +201,12 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
           />
         ) : (
           <div
-            className={`grid ${
-              layout.grid.length === 2 ? "gap-4" : ""
-            } grid-cols-1 md:grid-cols-${layout.grid.length}`}
-            style={{ height: "100%" }}
+            className={`grid`}
+            style={{
+              display: "grid",
+              gridTemplateColumns: generateGridLayout(layout.type),
+              height: "100%",
+            }}
           >
             {layout.grid.map((grid, index) => (
               <div
@@ -216,26 +245,32 @@ const renderSection = (section: string, data: any) => {
       return (
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold">Contact Information</h2>
-          <p>Email: {data.email}</p>
-          <p>Phone: {data.phone}</p>
-          <p>
-            LinkedIn:{" "}
+          <p className="flex items-start">
+            <EnvelopeClosedIcon className="w-5 h-5 mt-1 mr-2 flex-shrink-0" />
+            <span className="self-start break-words">{data.email}</span>
+          </p>
+          <p className="flex items-start">
+            <PhoneIcon className="w-5 h-5 mt-1 mr-2 flex-shrink-0" />
+            <span className="self-start break-words">{data.phone}</span>
+          </p>
+          <p className="flex items-start">
+            <LinkedInLogoIcon className="w-5 h-5 mt-1 mr-2 flex-shrink-0" />
             <a
               href={data.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 underline"
+              className="self-start text-blue-500 underline break-words"
             >
               {data.linkedin}
             </a>
           </p>
-          <p>
-            GitHub:{" "}
+          <p className="flex items-start">
+            <GitHubLogoIcon className="w-5 h-5 mt-1 mr-2 flex-shrink-0" />
             <a
               href={data.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500 underline"
+              className="self-start text-blue-500 underline break-words"
             >
               {data.github}
             </a>

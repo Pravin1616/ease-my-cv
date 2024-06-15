@@ -1,7 +1,8 @@
 [
     {
         "name": "Basic",
-        "image": "Spring.png",
+        "image": "Basic.png",
+        "type": "1*1",
         "grid": [
             {
                 "ui_properties": {
@@ -16,7 +17,8 @@
     },
   {
       "name": "Detailed",
-      "image": "Spring.png",
+      "image": "Detailed.png",
+      "type": "1*2",
       "grid": [
           {
               "ui_properties": {
@@ -37,5 +39,30 @@
               "sections": ["summary", "work_experience", "projects", "education"]
           }
       ]
-  }
+  },
+  {
+    "name": "Strong",
+    "image": "Strong.png",
+    "type": "2*1",
+    "grid": [
+        {
+            "ui_properties": {
+                "background_color": "#f4f4f4",
+                "text_color": "#555555",
+                "column_start": 2,
+                "column_end": 4
+            },
+            "sections": ["summary", "work_experience", "projects", "education"]
+        },
+        {
+            "ui_properties": {
+                "background_color": "#ffffff",
+                "text_color": "#333333",
+                "column_start": 1,
+                "column_end": 2
+            },
+            "sections": ["header", "contact", "skills"]
+        }
+    ]
+}
 ]

@@ -74,3 +74,21 @@
       @apply bg-background text-foreground;
     }
   }
+
+  /* App.css */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Optional: Add your existing styles for header, main, and footer if needed */
