@@ -12,6 +12,7 @@ import ResumeForm from "./ResumeForm";
 import { Button } from "../../../@/components/ui/button";
 import * as htmlToImage from "html-to-image";
 import { PhoneIcon } from "lucide-react";
+import { useTheme } from "../../../ThemeContext";
 
 interface UiProperties {
   background_color: string;
@@ -80,6 +81,7 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
   const [resumeData, setResumeData] = useState(data);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setIsDataChanged(JSON.stringify(resumeData) !== JSON.stringify(data));
@@ -213,8 +215,14 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
                 key={index}
                 className="p-4"
                 style={{
-                  backgroundColor: grid.ui_properties.background_color,
-                  color: grid.ui_properties.text_color,
+                  backgroundColor:
+                    grid.ui_properties.background_color === "#f4f4f4"
+                      ? theme["primary"]
+                      : grid.ui_properties.background_color,
+                  color:
+                    grid.ui_properties.background_color === "#f4f4f4"
+                      ? theme["text"]
+                      : grid.ui_properties.text_color,
                 }}
               >
                 {grid.sections.map((section, sectionIndex) => (

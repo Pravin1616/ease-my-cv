@@ -4,6 +4,7 @@ import layouts from "../../../json/layout.json";
 import Skeleton from "react-loading-skeleton";
 import ResumeRender from "./ResumeRender";
 import "./Standard.css";
+import ColorSelector from "../../colorSelector/ColorSelector";
 
 // Define types for the JSON template
 interface Field {
@@ -69,6 +70,7 @@ const Standard: React.FC = () => {
       {selectedTemplate ? (
         <div className="container mx-auto p-4">
           <div className="max-w-4xl mx-auto">
+            <ColorSelector />
             <ResumeRender
               data={data}
               layout={selectedTemplate}
