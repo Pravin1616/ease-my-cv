@@ -21,11 +21,6 @@ interface UiProperties {
   column_end: number;
 }
 
-interface Section {
-  ui_properties: UiProperties;
-  sections: string[];
-}
-
 interface LayoutGridItem {
   ui_properties: {
     background_color: string;
@@ -81,7 +76,7 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
   const [resumeData, setResumeData] = useState(data);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     setIsDataChanged(JSON.stringify(resumeData) !== JSON.stringify(data));
