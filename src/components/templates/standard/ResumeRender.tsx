@@ -14,13 +14,6 @@ import * as htmlToImage from "html-to-image";
 import { PhoneIcon } from "lucide-react";
 import { useTheme } from "../../../ThemeContext";
 
-interface UiProperties {
-  background_color: string;
-  text_color: string;
-  column_start: number;
-  column_end: number;
-}
-
 interface LayoutGridItem {
   ui_properties: {
     background_color: string;
