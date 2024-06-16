@@ -6,63 +6,170 @@
         "grid": [
             {
                 "ui_properties": {
-                    "background_color": "#f0f0f0",
+                    "background_color": "#f4f4f4",
                     "text_color": "#444444",
                     "column_start": 1,
                     "column_end": 1
                 },
-                "sections": ["header", "skills","work_experience","projects", "education"]
+                "sections": ["header", "skills", "projects", "education"]
             }
         ]
     },
-  {
-      "name": "Detailed",
-      "image": "Detailed.png",
-      "type": "1*2",
-      "grid": [
-          {
-              "ui_properties": {
-                  "background_color": "#ffffff",
-                  "text_color": "#333333",
-                  "column_start": 1,
-                  "column_end": 2
-              },
-              "sections": ["header", "contact", "skills"]
-          },
-          {
-              "ui_properties": {
-                  "background_color": "#f4f4f4",
-                  "text_color": "#555555",
-                  "column_start": 2,
-                  "column_end": 4
-              },
-              "sections": ["summary", "work_experience", "projects", "education"]
-          }
-      ]
-  },
-  {
-    "name": "Strong",
-    "image": "Strong.png",
-    "type": "2*1",
-    "grid": [
-        {
-            "ui_properties": {
-                "background_color": "#f4f4f4",
-                "text_color": "#555555",
-                "column_start": 2,
-                "column_end": 4
+    {
+        "name": "Modern",
+        "image": "Modern.png",
+        "type": "1*1",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#222222",
+                    "column_start": 1,
+                    "column_end": 1
+                },
+                "sections": ["header", "summary", "skills", "work_experience", "education"]
+            }
+        ]
+    },
+    {
+        "name": "Classic",
+        "image": "Classic.png",
+        "type": "1*1",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#000000",
+                    "column_start": 1,
+                    "column_end": 1
+                },
+                "sections": ["header", "contact", "skills", "work_experience", "projects"]
+            }
+        ]
+    },
+    {
+        "name": "Detailed",
+        "image": "Detailed.png",
+        "type": "1*2",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#ffffff",
+                    "text_color": "#333333",
+                    "column_start": 1,
+                    "column_end": 2
+                },
+                "sections": ["header", "contact", "skills"]
             },
-            "sections": ["summary", "work_experience", "projects", "education"]
-        },
-        {
-            "ui_properties": {
-                "background_color": "#ffffff",
-                "text_color": "#333333",
-                "column_start": 1,
-                "column_end": 2
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#555555",
+                    "column_start": 2,
+                    "column_end": 4
+                },
+                "sections": ["summary", "work_experience", "projects", "education"]
+            }
+        ]
+    },
+    {
+        "name": "Professional",
+        "image": "Professional.png",
+        "type": "1*2",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#111111",
+                    "column_start": 1,
+                    "column_end": 2
+                },
+                "sections": ["header", "contact", "summary", "skills"]
             },
-            "sections": ["header", "contact", "skills"]
-        }
-    ]
-}
+            {
+                "ui_properties": {
+                    "background_color": "#eeeeee",
+                    "text_color": "#444444",
+                    "column_start": 2,
+                    "column_end": 4
+                },
+                "sections": ["work_experience", "projects", "education"]
+            }
+        ]
+    },
+    {
+        "name": "Creative",
+        "image": "Creative.png",
+        "type": "1*2",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#f7f7f7",
+                    "text_color": "#222222",
+                    "column_start": 1,
+                    "column_end": 2
+                },
+                "sections": ["header", "summary"]
+            },
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#333333",
+                    "column_start": 2,
+                    "column_end": 4
+                },
+                "sections": ["contact", "skills", "projects", "education"]
+            }
+        ]
+    },
+    {
+        "name": "Strong",
+        "image": "Strong.png",
+        "type": "2*1",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#555555",
+                    "column_start": 2,
+                    "column_end": 4
+                },
+                "sections": ["summary", "work_experience", "projects", "education"]
+            },
+            {
+                "ui_properties": {
+                    "background_color": "#ffffff",
+                    "text_color": "#333333",
+                    "column_start": 1,
+                    "column_end": 2
+                },
+                "sections": ["header", "contact", "skills"]
+            }
+        ]
+    },
+    {
+        "name": "Balanced",
+        "image": "Balanced.png",
+        "type": "1*2",
+        "grid": [
+            {
+                "ui_properties": {
+                    "background_color": "#fafafa",
+                    "text_color": "#111111",
+                    "column_start": 1,
+                    "column_end": 2
+                },
+                "sections": ["header", "contact", "skills"]
+            },
+            {
+                "ui_properties": {
+                    "background_color": "#f4f4f4",
+                    "text_color": "#444444",
+                    "column_start": 2,
+                    "column_end": 4
+                },
+                "sections": ["summary", "projects", "work_experience"]
+            }
+        ]
+    }
 ]

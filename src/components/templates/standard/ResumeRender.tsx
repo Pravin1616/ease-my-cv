@@ -191,7 +191,7 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
         style={{
           width: "100%",
           maxWidth: "210mm",
-          height: `${isEditMode ? "100%" : "297mm"}`,
+          maxHeight: `${isEditMode ? "100%" : "297mm"}`,
         }}
       >
         {/* Resume content */}

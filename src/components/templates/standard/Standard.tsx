@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import template from "../../../json/template_1.json";
+import template from "../../../json/form.json";
 import layouts from "../../../json/layout.json";
 import Skeleton from "react-loading-skeleton";
 import ResumeRender from "./ResumeRender";

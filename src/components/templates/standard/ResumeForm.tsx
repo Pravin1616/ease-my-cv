@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import template from "../../../json/template_1.json";
+import template from "../../../json/form.json";
 import { Cross1Icon, TrashIcon } from "@radix-ui/react-icons";
 import {
   FormControl,
