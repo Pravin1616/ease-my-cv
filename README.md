@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+Ease My CV
+Ease My CV is a web application built with React that allows users to preview, customize, and download their resumes. Users can choose custom colors, edit their resume content, and export the final version.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Table of Contents
+Demo
+Features
+Installation
+Usage
+Technologies Used
+Contributing
+License
+Contact
+Demo
+You can access the live demo of the project here.
 
-## Available Scripts
+Features
+Preview resume templates
+Customize colors and content of the resume
+Real-time editing
+Download the resume as an image or PDF
+Installation
+To get a local copy up and running, follow these steps:
 
-In the project directory, you can run:
+Prerequisites
+Node.js (v14 or higher)
+npm (v6 or higher) or yarn
+Clone the Repository
+git clone https://github.com/your-username/ease-my-cv.git
+cd ease-my-cv
+Install Dependencies
+npm install
 
-### `npm start`
+To start the development server, run:
+npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This will launch the application at http://localhost:3000.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Technologies Used
+React: A JavaScript library for building user interfaces
+TypeScript: A superset of JavaScript that adds static types
+Tailwind CSS: A utility-first CSS framework
+react-hook-form: Performant, flexible, and extensible forms with easy-to-use validation
+zod: TypeScript-first schema declaration and validation library
+html-to-image: Convert HTML to image
+lucide-react: Beautiful & consistent icon toolkit made by the creators of Feather icons
+react-loading-skeleton: Create skeleton screens that automatically adapt to your elements
+tailwind-merge: Merge Tailwind CSS classes in JavaScript without style conflicts
+tailwindcss-animate: Tailwind CSS plugin for animations
+Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Fork the Project
+Create your Feature Branch (git checkout -b feature/AmazingFeature)
+Commit your Changes (git commit -m 'Add some AmazingFeature')
+Push to the Branch (git push origin feature/AmazingFeature)
+Open a Pull Request
