@@ -125,6 +125,10 @@ const ResumeRender: React.FC<ResumeRenderProps> = ({
         .catch(function (error) {
           console.error("Error:", error);
         });
+
+      container.style.width = "100%"; // A4 width in pixels
+      container.style.maxHeight = `${isEditMode ? "100%" : "297mm"}`; // A4 height in pixels
+      container.style.maxWidth = "100%"; // Hide overflow content
     }
   };
 
